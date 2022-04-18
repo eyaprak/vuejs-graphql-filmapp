@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const { graphqlHTTP } = require('express-graphql');
-
+const path = require('path');
 const {
   GraphQLObjectType,
   GraphQLNonNull,
@@ -79,6 +79,14 @@ app.use(
     graphiql: true,
   })
 );
+
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static('client/dist'));
+
+  app.get('*', (req,res)=>{
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+  })
+}
 
 app.listen(process.env.PORT, () => {
   console.log('Server is listening on 8000. port...');

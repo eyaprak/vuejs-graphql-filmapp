@@ -3,8 +3,8 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     proxy: {
-      '/graphql': {
-        target: 'https://vue-graphql-app2.herokuapp.com',
+      '/': {
+        target: 'http://localhost:8000',
         changeOrigin: true
       }
     }
